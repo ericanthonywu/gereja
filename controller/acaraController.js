@@ -32,6 +32,28 @@ exports.getAcara = async (req, res, next) => {
     }
 }
 
+exports.getAcaraDetail = async (req, res, next) => {
+    try {
+        const {id} = req.params
+
+        const data = await db("acara")
+            .first(
+                "title",
+                "image",
+                "description",
+                "event_date",
+                "time_after",
+                "time_before",
+                "canceled_at",
+            )
+            .where({id})
+
+        res.status(200).json({message: "OK", data})
+    } catch (e) {
+        next(errorHandlerSyntax(MYSQL_ERROR, e))
+    }
+}
+
 exports.registerAcara = async (req, res, next) => {
     try {
         const {acara_id} = req.body

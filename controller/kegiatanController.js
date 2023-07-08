@@ -33,6 +33,29 @@ exports.getKegiatan = async (req, res, next) => {
     }
 }
 
+exports.getKegiatanDetail = async (req, res, next) => {
+    try {
+        const {id} = req.params
+
+        const data = await db("kegiatan")
+            .first(
+                "title",
+                "image",
+                "description",
+                "event_date",
+                "day_repeat_of_week",
+                "time_after",
+                "time_before",
+                "canceled_at",
+            )
+            .where({id})
+
+        res.status(200).json({message: "OK", data})
+    } catch (e) {
+        next(errorHandlerSyntax(MYSQL_ERROR, e))
+    }
+}
+
 exports.registerKegiatan = async (req, res, next) => {
     try {
         const {kegiatan_id} = req.body

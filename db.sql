@@ -126,7 +126,7 @@ CREATE TABLE `ebook_tags` (
   KEY `ebook_tags_ebook_id_fk` (`ebook_id`),
   KEY `ebook_tags_master_tags_id_fk` (`tags_id`),
   CONSTRAINT `ebook_tags_ebook_id_fk` FOREIGN KEY (`ebook_id`) REFERENCES `ebook` (`id`),
-  CONSTRAINT `ebook_tags_master_tags_id_fk` FOREIGN KEY (`tags_id`) REFERENCES `master_tags` (`id`)
+  CONSTRAINT `ebook_tags_master_tags_id_fk` FOREIGN KEY (`tags_id`) REFERENCES master_ebook_tags (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -260,7 +260,7 @@ UNLOCK TABLES;
 -- Table structure for table `master_tags`
 --
 
-DROP TABLE IF EXISTS `master_tags`;
+DROP TABLE IF EXISTS master_ebook_tags;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `master_tags` (
@@ -274,9 +274,9 @@ CREATE TABLE `master_tags` (
 -- Dumping data for table `master_tags`
 --
 
-LOCK TABLES `master_tags` WRITE;
-/*!40000 ALTER TABLE `master_tags` DISABLE KEYS */;
-/*!40000 ALTER TABLE `master_tags` ENABLE KEYS */;
+LOCK TABLES master_ebook_tags WRITE;
+/*!40000 ALTER TABLE master_ebook_tags DISABLE KEYS */;
+/*!40000 ALTER TABLE master_ebook_tags ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
