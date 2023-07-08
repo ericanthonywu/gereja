@@ -50,7 +50,7 @@ exports.getFamily = async (req, res, next) => {
         const data = await db("family")
             .where({user_id: res.locals.jwtData.id})
             .join("user", "user.id", "family.family_id")
-            .select("nama", "email", "phone")
+            .select("user.id as family_id","nama", "email", "phone")
 
         res.status(200).json({message: "OK", data})
     } catch (e) {
@@ -64,6 +64,20 @@ exports.addFamily = async (req, res, next) => {
 
         await db("family")
             .insert({user_id: res.locals.jwtData.id, family_id})
+
+        res.status(201).json({message: "OK"})
+    } catch (e) {
+        next(errorHandlerSyntax(MYSQL_ERROR, e))
+    }
+}
+
+exports.deleteFamily = async (req, res, next) => {
+    try {
+        const {family_id} = req.params
+
+        await db("family")
+            .where({user_id: res.locals.jwtData.id, family_id}).
+                del()
 
         res.status(201).json({message: "OK"})
     } catch (e) {

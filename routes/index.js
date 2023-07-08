@@ -1,7 +1,7 @@
 const express = require('express');
 const {login, register} = require("../controller/authController");
 const {jwtMiddleware} = require("../middleware/authMiddleware");
-const {getProfile, updateProfile, getFamily, addFamily, getUserList} = require("../controller/profileController");
+const {getProfile, updateProfile, getFamily, addFamily, getUserList, deleteFamily} = require("../controller/profileController");
 const {getKegiatan, registerKegiatan, getKegiatanDetail} = require("../controller/kegiatanController");
 const {getAcara, registerAcara, getAcaraDetail} = require("../controller/acaraController");
 const {getEbook, getEbookDetail} = require("../controller/ebook");
@@ -16,6 +16,7 @@ router.patch("/profile", jwtMiddleware, updateProfile)
 
 router.get("/profile/family", jwtMiddleware, getFamily)
 router.post("/profile/family", jwtMiddleware, addFamily)
+router.delete("/profile/family/:family_id", jwtMiddleware, deleteFamily)
 
 router.get("/master/user",jwtMiddleware, getUserList)
 
