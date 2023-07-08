@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.18, for macos10.14 (x86_64)
 --
--- Host: 127.0.0.1    Database: gereja
+-- Host: 151.106.112.154    Database: gereja
 -- ------------------------------------------------------
 -- Server version	8.0.33
 
@@ -35,7 +35,7 @@ CREATE TABLE `acara` (
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `canceled_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,6 +44,7 @@ CREATE TABLE `acara` (
 
 LOCK TABLES `acara` WRITE;
 /*!40000 ALTER TABLE `acara` DISABLE KEYS */;
+INSERT INTO `acara` VALUES (1,'a','a','a','a',1,'00:00:00','23:59:59','2023-07-09','2023-07-09 00:07:39',NULL);
 /*!40000 ALTER TABLE `acara` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,7 +65,7 @@ CREATE TABLE `acara_user_registration` (
   KEY `event_user_registration_user_id_fk` (`user_id`),
   CONSTRAINT `event_user_registration_event_id_fk` FOREIGN KEY (`acara_id`) REFERENCES `acara` (`id`),
   CONSTRAINT `event_user_registration_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,6 +74,7 @@ CREATE TABLE `acara_user_registration` (
 
 LOCK TABLES `acara_user_registration` WRITE;
 /*!40000 ALTER TABLE `acara_user_registration` DISABLE KEYS */;
+INSERT INTO `acara_user_registration` VALUES (1,1,1,'2023-07-09 00:11:14');
 /*!40000 ALTER TABLE `acara_user_registration` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -154,7 +156,7 @@ CREATE TABLE `family` (
   KEY `family_user_id_fk_2` (`family_id`),
   CONSTRAINT `family_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `family_user_id_fk_2` FOREIGN KEY (`family_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,6 +165,7 @@ CREATE TABLE `family` (
 
 LOCK TABLES `family` WRITE;
 /*!40000 ALTER TABLE `family` DISABLE KEYS */;
+INSERT INTO `family` VALUES (2,1,3,'2023-07-08 16:33:56');
 /*!40000 ALTER TABLE `family` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -183,11 +186,11 @@ CREATE TABLE `kegiatan` (
   `time_before` time DEFAULT NULL,
   `time_after` time DEFAULT NULL,
   `day_repeat_of_week` tinyint unsigned DEFAULT NULL,
-  `event_date` datetime DEFAULT NULL,
+  `event_date` date DEFAULT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `canceled_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -196,7 +199,38 @@ CREATE TABLE `kegiatan` (
 
 LOCK TABLES `kegiatan` WRITE;
 /*!40000 ALTER TABLE `kegiatan` DISABLE KEYS */;
+INSERT INTO `kegiatan` VALUES (1,'a','a','a','a',1,'23:37:00','23:51:04',6,NULL,'2023-07-08 16:42:22',NULL);
 /*!40000 ALTER TABLE `kegiatan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `kegiatan_user_registration`
+--
+
+DROP TABLE IF EXISTS `kegiatan_user_registration`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `kegiatan_user_registration` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `kegiatan_id` bigint unsigned DEFAULT NULL,
+  `user_id` bigint unsigned DEFAULT NULL,
+  `registered_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `kegiatan_user_registration_kegiatan_id_fk` (`kegiatan_id`),
+  KEY `kegiatan_user_registration_user_id_fk` (`user_id`),
+  CONSTRAINT `kegiatan_user_registration_kegiatan_id_fk` FOREIGN KEY (`kegiatan_id`) REFERENCES `kegiatan` (`id`),
+  CONSTRAINT `kegiatan_user_registration_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `kegiatan_user_registration`
+--
+
+LOCK TABLES `kegiatan_user_registration` WRITE;
+/*!40000 ALTER TABLE `kegiatan_user_registration` DISABLE KEYS */;
+INSERT INTO `kegiatan_user_registration` VALUES (1,1,1,'2023-07-09 00:05:03');
+/*!40000 ALTER TABLE `kegiatan_user_registration` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -263,7 +297,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `nama` (`nama`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `phone` (`phone`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -272,6 +306,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'eric','ericanthonywu899@gmail.com','6281236391375','$2b$10$KDDU8vdccTFdVEOCoD9Lk.XToPu/qyI59IY2uFSQA4mmqagQ/7Y5K','2023-07-08 15:34:40'),(3,'erica','ericaanthonywu89@gmail.com','0812363913755','$2b$10$RnUGlsmxeeZJczj..ribXuXHO/aP9Dd7p1XdYoeSYNNAsWh.BWkMS','2023-07-08 16:25:26');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -284,4 +319,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-08 22:14:18
+-- Dump completed on 2023-07-09  0:18:59
