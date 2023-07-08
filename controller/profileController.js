@@ -28,12 +28,29 @@ exports.updateProfile = async (req, res, next) => {
     }
 }
 
+exports.getUserList = async (req, res, next) => {
+    try {
+        const data = await db("user")
+            .whereNotIn("user.id",
+                db("family")
+                    .where("user_id","!=", db.raw("user.id"))
+                    .select("family_id")
+            )
+            .where("user.id", "!=", res.locals.jwtData.id)
+            .select("user.id", "nama", "email", "phone")
+
+        res.status(200).json({message: "OK", data})
+    } catch (e) {
+        next(errorHandlerSyntax(MYSQL_ERROR, e))
+    }
+}
+
 exports.getFamily = async (req, res, next) => {
     try {
         const data = await db("family")
             .where({user_id: res.locals.jwtData.id})
-            .join("user", "use.id", "family.family_id")
-            .select("id", "nama", "email", "phone")
+            .join("user", "user.id", "family.family_id")
+            .select("nama", "email", "phone")
 
         res.status(200).json({message: "OK", data})
     } catch (e) {
@@ -45,10 +62,10 @@ exports.addFamily = async (req, res, next) => {
     try {
         const {family_id} = req.body
 
-        const data = await db("family")
+        await db("family")
             .insert({user_id: res.locals.jwtData.id, family_id})
 
-        res.status(200).json({message: "OK", data})
+        res.status(201).json({message: "OK"})
     } catch (e) {
         next(errorHandlerSyntax(MYSQL_ERROR, e))
     }

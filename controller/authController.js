@@ -8,11 +8,12 @@ exports.login = async (req, res, next) => {
     try {
         const {emailOrPhone, password} = req.body;
 
-        const userData =await db("user")
-            .orWhere({email: emailOrPhone, phone: emailOrPhone})
+        const userData = await db("user")
+            .where({email: emailOrPhone})
+            .orWhere({phone: emailOrPhone})
             .first("id", "password")
 
-        if (!userData){
+        if (!userData) {
             return res.status(404).json({message: "user not found"});
         }
 
@@ -22,14 +23,14 @@ exports.login = async (req, res, next) => {
             return res.status(401).json({message: "password do not match"});
         }
 
-        jwt.sign({
+        await jwt.sign({
             id
-        }, process.env.JWTSECRETTOKEN, (token, err) => {
-            if (err){
-                return next(errorHandlerSyntax(JWT_ERROR, e))
+        }, process.env.JWTSECRETTOKEN, (err, token) => {
+            if (err) {
+                return next(errorHandlerSyntax(JWT_ERROR, err))
             }
 
-            res.status(200).json({
+            return res.status(200).json({
                 message: "login successful",
                 data: {
                     token
