@@ -16,6 +16,67 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `acara`
+--
+
+DROP TABLE IF EXISTS `acara`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `acara` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(200) DEFAULT NULL,
+  `image` varchar(200) DEFAULT NULL,
+  `description_thumbnail` text,
+  `description` text,
+  `quota` int unsigned DEFAULT NULL,
+  `time_before` time DEFAULT NULL,
+  `time_after` time DEFAULT NULL,
+  `event_date` date DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `canceled_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `acara`
+--
+
+LOCK TABLES `acara` WRITE;
+/*!40000 ALTER TABLE `acara` DISABLE KEYS */;
+/*!40000 ALTER TABLE `acara` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `acara_user_registration`
+--
+
+DROP TABLE IF EXISTS `acara_user_registration`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `acara_user_registration` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint unsigned DEFAULT NULL,
+  `acara_id` bigint unsigned DEFAULT NULL,
+  `registered_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `event_user_registration_event_id_fk` (`acara_id`),
+  KEY `event_user_registration_user_id_fk` (`user_id`),
+  CONSTRAINT `event_user_registration_event_id_fk` FOREIGN KEY (`acara_id`) REFERENCES `acara` (`id`),
+  CONSTRAINT `event_user_registration_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `acara_user_registration`
+--
+
+LOCK TABLES `acara_user_registration` WRITE;
+/*!40000 ALTER TABLE `acara_user_registration` DISABLE KEYS */;
+/*!40000 ALTER TABLE `acara_user_registration` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `ebook`
 --
 
@@ -77,69 +138,6 @@ LOCK TABLES `ebook_tags` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `event`
---
-
-DROP TABLE IF EXISTS acara;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `event` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(200) DEFAULT NULL,
-  `image` varchar(200) DEFAULT NULL,
-  `description_thumbnail` text,
-  `description` text,
-  `quota` int unsigned DEFAULT NULL,
-  `time_before` time DEFAULT NULL,
-  `time_after` time DEFAULT NULL,
-  `event_date` date DEFAULT NULL,
-  `type` enum('acara','kegiatan') DEFAULT NULL,
-  `is_week_repeat` tinyint(1) DEFAULT '0',
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `canceled_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `event`
---
-
-LOCK TABLES acara WRITE;
-/*!40000 ALTER TABLE acara DISABLE KEYS */;
-/*!40000 ALTER TABLE acara ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `event_user_registration`
---
-
-DROP TABLE IF EXISTS acara_user_registration;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `event_user_registration` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` bigint unsigned DEFAULT NULL,
-  `event_id` bigint unsigned DEFAULT NULL,
-  `registered_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `event_user_registration_event_id_fk` (`event_id`),
-  KEY `event_user_registration_user_id_fk` (`user_id`),
-  CONSTRAINT `event_user_registration_event_id_fk` FOREIGN KEY (`event_id`) REFERENCES acara (`id`),
-  CONSTRAINT `event_user_registration_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `event_user_registration`
---
-
-LOCK TABLES acara_user_registration WRITE;
-/*!40000 ALTER TABLE acara_user_registration DISABLE KEYS */;
-/*!40000 ALTER TABLE acara_user_registration ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `family`
 --
 
@@ -166,6 +164,39 @@ CREATE TABLE `family` (
 LOCK TABLES `family` WRITE;
 /*!40000 ALTER TABLE `family` DISABLE KEYS */;
 /*!40000 ALTER TABLE `family` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `kegiatan`
+--
+
+DROP TABLE IF EXISTS `kegiatan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `kegiatan` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(200) DEFAULT NULL,
+  `image` varchar(200) DEFAULT NULL,
+  `description_thumbnail` text,
+  `description` text,
+  `quota` int unsigned DEFAULT NULL,
+  `time_before` time DEFAULT NULL,
+  `time_after` time DEFAULT NULL,
+  `day_repeat_of_week` tinyint unsigned DEFAULT NULL,
+  `event_date` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `canceled_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `kegiatan`
+--
+
+LOCK TABLES `kegiatan` WRITE;
+/*!40000 ALTER TABLE `kegiatan` DISABLE KEYS */;
+/*!40000 ALTER TABLE `kegiatan` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -253,4 +284,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-05 13:33:38
+-- Dump completed on 2023-07-08 22:14:18
