@@ -39,7 +39,7 @@ exports.getEbookDetail = async (req, res, next) => {
                 "whatsapp_number",
                 "master_ebook_bahasa.name as bahasa"
             )
-            .join("master_ebook_bahasa", "master_ebook_bahasa.id","ebook.bahasa")
+            .join("master_ebook_bahasa", "master_ebook_bahasa.id", "ebook.bahasa")
             .where({"ebook.id": id})
 
         data.tags = await db("ebook_tags")

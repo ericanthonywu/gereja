@@ -87,7 +87,7 @@ exports.registerAcara = async (req, res, next) => {
     try {
         const {acara_id} = req.body
 
-        if (await checkExistTable(db("acara_user_registration").where({user_id: res.locals.jwtData.id, acara_id}))){
+        if (await checkExistTable(db("acara_user_registration").where({user_id: res.locals.jwtData.id, acara_id}))) {
             return res.status(400).json({message: 'user sudah mendaftar'})
         }
 

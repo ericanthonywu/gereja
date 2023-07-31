@@ -90,7 +90,10 @@ exports.registerKegiatan = async (req, res, next) => {
     try {
         const {kegiatan_id} = req.body
 
-        if (await checkExistTable(db("kegiatan_user_registration").where({user_id: res.locals.jwtData.id, kegiatan_id}))){
+        if (await checkExistTable(db("kegiatan_user_registration").where({
+            user_id: res.locals.jwtData.id,
+            kegiatan_id
+        }))) {
             return res.status(400).json({message: 'user sudah mendaftar'})
         }
 
