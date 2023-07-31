@@ -10,7 +10,7 @@ exports.getUser = async (req, res, next) => {
 
         const data = await db("user")
             .select("user.id", "nama", "email", "phone", "joined_at")
-        .limit(limit)
+            .limit(limit)
             .offset(offset)
 
         res.status(200).json({message: "OK", data})
@@ -25,7 +25,7 @@ exports.getUserDetailFamily = async (req, res, next) => {
 
         const data = await db("family")
             .select("user.id", "nama", "email", "phone", "joined_at")
-            .join("user","user.id","family.family_id")
+            .join("user", "user.id", "family.family_id")
             .where({user_id})
 
         res.status(200).json({message: "OK", data})

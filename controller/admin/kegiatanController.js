@@ -32,8 +32,8 @@ exports.getKegiatan = async (req, res, next) => {
     }
 }
 
-exports.getKegiatanUser = async (req,res, next) => {
-     try {
+exports.getKegiatanUser = async (req, res, next) => {
+    try {
         const {kegiatan_id} = req.params
 
         const data = await db("kegiatan_user_registration")
@@ -52,11 +52,20 @@ exports.getKegiatanUser = async (req,res, next) => {
     }
 }
 
-exports.createKegiatan = async (req, res,next) => {
+exports.createKegiatan = async (req, res, next) => {
     try {
         const {title, image, description_thumbnail, description, quota, time_before, time_after, event_date} = req.body
 
-        await db("kegiatan").insert({title, image, description_thumbnail, description, quota, time_before, time_after, event_date})
+        await db("kegiatan").insert({
+            title,
+            image,
+            description_thumbnail,
+            description,
+            quota,
+            time_before,
+            time_after,
+            event_date
+        })
 
         res.status(201).json({message: "OK"})
     } catch (e) {
@@ -64,9 +73,19 @@ exports.createKegiatan = async (req, res,next) => {
     }
 }
 
-exports.editKegiatan = async (req, res,next) => {
+exports.editKegiatan = async (req, res, next) => {
     try {
-        const {id, title, image, description_thumbnail, description, quota, time_before, time_after, event_date} = req.body
+        const {
+            id,
+            title,
+            image,
+            description_thumbnail,
+            description,
+            quota,
+            time_before,
+            time_after,
+            event_date
+        } = req.body
 
         await db("kegiatan")
             .where({id})
@@ -78,7 +97,7 @@ exports.editKegiatan = async (req, res,next) => {
     }
 }
 
-exports.deleteKegiatan = async (req, res,next) => {
+exports.deleteKegiatan = async (req, res, next) => {
     try {
         const {id} = req.params
 
@@ -92,7 +111,7 @@ exports.deleteKegiatan = async (req, res,next) => {
     }
 }
 
-exports.cancelKegiatan = async (req, res,next) => {
+exports.cancelKegiatan = async (req, res, next) => {
     try {
         const {id} = req.params
 

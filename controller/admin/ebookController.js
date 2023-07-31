@@ -29,7 +29,7 @@ exports.getEbook = async (req, res, next) => {
             datum.tags = await db("ebook_tags")
                 .where({ebook_id: datum.id})
                 .join("master_ebook_tags", "master_ebook_tags.id", "ebook_tags.tags_id")
-                .select("master_ebook_tags.name","master_ebook_tags.id")
+                .select("master_ebook_tags.name", "master_ebook_tags.id")
         }
 
         res.status(200).json({message: "OK", data})
@@ -128,7 +128,7 @@ exports.updateEbook = async (req, res, next) => {
 }
 
 exports.deleteEbook = async (req, res, next) => {
-    try{
+    try {
         const {id} = req.params
 
         await db("ebook").where({id}).del()

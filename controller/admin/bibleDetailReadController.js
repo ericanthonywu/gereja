@@ -8,8 +8,8 @@ exports.getBibleDetailRead = async (req, res, next) => {
 
         const data = await db("bible_detail_read")
             .where({bible_detail_id})
-            .select("bible_detail_read.id", "pasal","ayat", "isi", 'bible_detail.bab')
-            .join("bible_detail","bible_detail.id","bible_detail_read.bible_detail_id")
+            .select("bible_detail_read.id", "pasal", "ayat", "isi", 'bible_detail.bab')
+            .join("bible_detail", "bible_detail.id", "bible_detail_read.bible_detail_id")
 
         res.status(200).json({message: "OK", data})
     } catch (e) {
@@ -19,8 +19,8 @@ exports.getBibleDetailRead = async (req, res, next) => {
 
 exports.createBibleDetailRead = async (req, res, next) => {
     try {
-        const {bible_detail_id, pasal,ayat, isi} = req.body
-        await db("bible_detail_read").insert({bible_detail_id, pasal,ayat, isi})
+        const {bible_detail_id, pasal, ayat, isi} = req.body
+        await db("bible_detail_read").insert({bible_detail_id, pasal, ayat, isi})
 
         res.status(201).json({message: "OK"})
     } catch (e) {
@@ -30,8 +30,8 @@ exports.createBibleDetailRead = async (req, res, next) => {
 
 exports.updateBibleDetailRead = async (req, res, next) => {
     try {
-        const {bible_detail_id, pasal,ayat, isi, id} = req.body
-        await db("bible_detail_read").update({bible_detail_id, pasal,ayat, isi}).where({id})
+        const {bible_detail_id, pasal, ayat, isi, id} = req.body
+        await db("bible_detail_read").update({bible_detail_id, pasal, ayat, isi}).where({id})
 
         res.status(200).json({message: "OK"})
     } catch (e) {

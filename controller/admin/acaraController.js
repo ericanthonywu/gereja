@@ -31,8 +31,8 @@ exports.getAcara = async (req, res, next) => {
     }
 }
 
-exports.getAcaraUser = async (req,res, next) => {
-     try {
+exports.getAcaraUser = async (req, res, next) => {
+    try {
         const {acara_id} = req.params
 
         const data = await db("acara_user_registration")
@@ -51,11 +51,20 @@ exports.getAcaraUser = async (req,res, next) => {
     }
 }
 
-exports.createAcara = async (req, res,next) => {
+exports.createAcara = async (req, res, next) => {
     try {
         const {title, image, description_thumbnail, description, quota, time_before, time_after, event_date} = req.body
 
-        await db("acara").insert({title, image, description_thumbnail, description, quota, time_before, time_after, event_date})
+        await db("acara").insert({
+            title,
+            image,
+            description_thumbnail,
+            description,
+            quota,
+            time_before,
+            time_after,
+            event_date
+        })
 
         res.status(201).json({message: "OK"})
     } catch (e) {
@@ -63,9 +72,19 @@ exports.createAcara = async (req, res,next) => {
     }
 }
 
-exports.editAcara = async (req, res,next) => {
+exports.editAcara = async (req, res, next) => {
     try {
-        const {id, title, image, description_thumbnail, description, quota, time_before, time_after, event_date} = req.body
+        const {
+            id,
+            title,
+            image,
+            description_thumbnail,
+            description,
+            quota,
+            time_before,
+            time_after,
+            event_date
+        } = req.body
 
         await db("acara")
             .where({id})
@@ -77,7 +96,7 @@ exports.editAcara = async (req, res,next) => {
     }
 }
 
-exports.deleteAcara = async (req, res,next) => {
+exports.deleteAcara = async (req, res, next) => {
     try {
         const {id} = req.params
 
@@ -91,7 +110,7 @@ exports.deleteAcara = async (req, res,next) => {
     }
 }
 
-exports.cancelAcara = async (req, res,next) => {
+exports.cancelAcara = async (req, res, next) => {
     try {
         const {id} = req.params
 
