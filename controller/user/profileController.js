@@ -1,6 +1,6 @@
-const db = require("../config/database/connection")
-const {errorHandlerSyntax} = require("../middleware/errorHandler/errorHandlerMiddleware");
-const {MYSQL_ERROR} = require("../middleware/errorHandler/errorType");
+const db = require("../../config/database/connection")
+const {errorHandlerSyntax} = require("../../middleware/errorHandler/errorHandlerMiddleware");
+const {MYSQL_ERROR} = require("../../middleware/errorHandler/errorType");
 
 exports.getProfile = async (req, res, next) => {
     try {

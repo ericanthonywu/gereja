@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt')
-const db = require("../config/database/connection")
-const {errorHandlerSyntax} = require("../middleware/errorHandler/errorHandlerMiddleware");
-const {MYSQL_ERROR, JWT_ERROR} = require("../middleware/errorHandler/errorType");
+const db = require("../../config/database/connection")
+const {errorHandlerSyntax} = require("../../middleware/errorHandler/errorHandlerMiddleware");
+const {MYSQL_ERROR, JWT_ERROR} = require("../../middleware/errorHandler/errorType");
 const jwt = require("jsonwebtoken");
 
 exports.login = async (req, res, next) => {
