@@ -23,7 +23,7 @@ exports.getKegiatan = async (req, res, next) => {
                 db.raw(`(select exists(select 1 from kegiatan_user_registration where user_id = ${res.locals.jwtData.id})) as user_is_registered`)
             )
             .where(db.raw("IFNULL(event_date,CURRENT_DATE)"), ">=", db.raw("CURRENT_DATE"))
-            .where("time_after", ">=", db.raw("CURRENT_TIME"))
+            // .where("time_after", ">=", db.raw("CURRENT_TIME"))
             .limit(limit)
             .offset(offset)
 
@@ -52,8 +52,8 @@ exports.getHistoryKegiatan = async (req, res, next) => {
             )
             .whereNotNull("event_date")
             .where("event_date", "<=", db.raw("CURRENT_DATE"))
-            .where("time_after", "<=", db.raw("CURRENT_TIME"))
-            .whereNotNull("canceled_at")
+            // .where("time_after", "<=", db.raw("CURRENT_TIME"))
+            .orWhereNotNull("canceled_at")
             .limit(limit)
             .offset(offset)
 
