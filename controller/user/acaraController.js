@@ -20,7 +20,7 @@ exports.getAcara = async (req, res, next) => {
                 "time_before",
                 db.raw(`(select exists(select 1 from acara_user_registration where user_id = ${res.locals.jwtData.id})) as user_is_registered`)
             )
-            // .where("event_date", ">=", db.raw("CURRENT_DATE"))
+            .where("event_date", ">=", db.raw("CURRENT_DATE"))
             // .where("time_after", ">=", db.raw("CURRENT_TIME"))
             .whereNull("canceled_at")
             .limit(limit)
@@ -49,7 +49,7 @@ exports.getHistoryAcara = async (req, res, next) => {
                 "time_before",
                 db.raw(`(select exists(select 1 from acara_user_registration where user_id = ${res.locals.jwtData.id})) as user_is_registered`)
             )
-            // .where("event_date", "<=", db.raw("CURRENT_DATE"))
+            .where("event_date", "<=", db.raw("CURRENT_DATE"))
             // .where("time_after", "<=", db.raw("CURRENT_TIME"))
             .whereNotNull("canceled_at")
             .limit(limit)
