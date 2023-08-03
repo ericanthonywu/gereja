@@ -1,7 +1,8 @@
 const db = require("../../config/database/connection")
 const {errorHandlerSyntax} = require("../../middleware/errorHandler/errorHandlerMiddleware");
-const {MYSQL_ERROR} = require("../../middleware/errorHandler/errorType");
+const {MYSQL_ERROR, AXIOS_ERROR} = require("../../middleware/errorHandler/errorType");
 const {checkExistTable} = require("../../util");
+const axios = require("axios");
 
 exports.getBible = async (req, res, next) => {
     try {
@@ -121,5 +122,25 @@ exports.updateBibleDetailStatus = async (req, res, next) => {
         res.status(200).json({message: "OK"})
     } catch (e) {
         next(errorHandlerSyntax(MYSQL_ERROR, e))
+    }
+}
+
+
+exports.getBibleList = async (req, res, next) => {
+    try {
+        const {data: {data}} = await axios.get("https://beeble.vercel.app/api/v1/passage/list")
+        res.status(200).json({message: "OK", data})
+    } catch (e) {
+        next(errorHandlerSyntax(AXIOS_ERROR, e))
+    }
+}
+
+exports.getBibleListDetail = async (req, res, next) => {
+    try {
+        const {abbr, chapter} = req.params
+        const {data: {data}} = await axios.get(`https://beeble.vercel.app/api/v1/passage/${abbr}/${chapter}?ver=tsi`)
+        res.status(200).json({message: "OK", data: data.verses})
+    } catch (e) {
+        next(errorHandlerSyntax(AXIOS_ERROR, e))
     }
 }

@@ -13,6 +13,13 @@ exports.MYSQL_ERROR = 'mysql_error'
 exports.BCRYPT_ERROR = 'bcrypt_error'
 
 /**
+ * Bcrypt error type
+ *
+ * @type {string}
+ */
+exports.AXIOS_ERROR = 'axios_error'
+
+/**
  * JWT error type
  *
  * @type {string}

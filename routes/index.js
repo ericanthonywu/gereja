@@ -6,7 +6,7 @@ const {getKegiatan, registerKegiatan, getKegiatanDetail, getHistoryKegiatan} = r
 const {getAcara, registerAcara, getAcaraDetail, getHistoryAcara} = require("../controller/user/acaraController");
 const {getEbook, getEbookDetail} = require("../controller/user/ebookController");
 const {getBible, getBibleDetail, getBibleDetailRead, updateBibleDetailStatus,
-    getBibleSelfReflection, updateBibleSelfReflection
+    getBibleSelfReflection, updateBibleSelfReflection, getBibleList, getBibleListDetail
 } = require("../controller/user/bibleController");
 const router = express.Router();
 
@@ -42,5 +42,8 @@ router.get("/bible/detail/read/:bible_detail_id", jwtMiddleware, getBibleDetailR
 
 router.get("/bible/detail/self_reflection/:bible_detail_id", jwtMiddleware, getBibleSelfReflection)
 router.patch("/bible/detail/self_reflection", jwtMiddleware, updateBibleSelfReflection)
+
+router.get("/bible/passage", getBibleList)
+router.get("/bible/passage/:abbr/:chapter", getBibleListDetail)
 
 module.exports = router;
