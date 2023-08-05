@@ -39,6 +39,7 @@ exports.getBible = async (req, res, next) => {
 exports.getBibleDetail = async (req, res, next) => {
     try {
         const {bible_id} = req.params
+        const {date} = req.query
 
         const data = await db("bible_detail")
             .where({bible_id})
@@ -48,6 +49,7 @@ exports.getBibleDetail = async (req, res, next) => {
                 "bab",
                 db.raw("(select exists(select 1 from `bible_detail_read_status_user` where bible_detail_read_status_user.bible_detail_id = bible_detail.id and `user_id` = ?)) as read_status", [res.locals.jwtData.id])
             )
+            .where({date})
 
         res.status(200).json({message: "OK", data})
     } catch (e) {

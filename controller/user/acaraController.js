@@ -18,11 +18,11 @@ exports.getAcara = async (req, res, next) => {
                 "event_date",
                 "time_after",
                 "time_before",
-                db.raw(`(select exists(select 1 from acara_user_registration where user_id = ${res.locals.jwtData.id})) as user_is_registered`)
+                db.raw(`(select exists(select 1 from acara_user_registration where user_id = ${res.locals.jwtData.id} and acara_id = acara.id)) as user_is_registered`)
             )
             .where("event_date", ">=", db.raw("CURRENT_DATE"))
-            // .where("time_after", ">=", db.raw("CURRENT_TIME"))
             .whereNull("canceled_at")
+            .orderBy("created_at","desc")
             .limit(limit)
             .offset(offset)
 
@@ -43,14 +43,15 @@ exports.getHistoryAcara = async (req, res, next) => {
                 "id",
                 "title",
                 "image",
+                "quota",
                 "description_thumbnail",
                 "event_date",
                 "time_after",
                 "time_before",
-                db.raw(`(select exists(select 1 from acara_user_registration where user_id = ${res.locals.jwtData.id})) as user_is_registered`)
+                db.raw(`(select exists(select 1 from acara_user_registration where user_id = ${res.locals.jwtData.id} and acara_id = acara.id)) as user_is_registered`)
             )
             .where("event_date", "<=", db.raw("CURRENT_DATE"))
-            // .where("time_after", "<=", db.raw("CURRENT_TIME"))
+            .orderBy("created_at","desc")
             .orWhereNotNull("canceled_at")
             .limit(limit)
             .offset(offset)
