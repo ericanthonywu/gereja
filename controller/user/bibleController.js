@@ -47,6 +47,7 @@ exports.getBibleDetail = async (req, res, next) => {
                 "id",
                 "date",
                 "bab",
+                "pasal",
                 db.raw("(select exists(select 1 from `bible_detail_read_status_user` where bible_detail_read_status_user.bible_detail_id = bible_detail.id and `user_id` = ?)) as read_status", [res.locals.jwtData.id])
             )
             .where({date})
