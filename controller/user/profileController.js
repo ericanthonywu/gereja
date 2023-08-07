@@ -60,10 +60,10 @@ exports.getFamily = async (req, res, next) => {
 
 exports.addFamily = async (req, res, next) => {
     try {
-        const {family_id} = req.body
+        const {user_id} = req.body
 
         await db("family")
-            .insert({user_id: res.locals.jwtData.id, family_id})
+            .insert({user_id: res.locals.jwtData.id, family_id: user_id})
 
         res.status(201).json({message: "OK"})
     } catch (e) {
