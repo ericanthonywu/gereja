@@ -4,10 +4,6 @@ const {MYSQL_ERROR} = require("../../middleware/errorHandler/errorType");
 
 exports.getEbook = async (req, res, next) => {
     try {
-        const {pagination} = req.query
-        const limit = 10
-        const offset = (pagination - 1) * limit
-
         const data = await db("ebook")
             .select(
                 "ebook.id",
@@ -22,8 +18,6 @@ exports.getEbook = async (req, res, next) => {
             )
             .join("master_ebook_bahasa", "master_ebook_bahasa.id", "ebook.bahasa")
             .orderBy("ebook.id")
-            .limit(limit)
-            .offset(offset)
 
         for (const datum of data) {
             datum.tags = await db("ebook_tags")

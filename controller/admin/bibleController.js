@@ -4,10 +4,6 @@ const {MYSQL_ERROR} = require("../../middleware/errorHandler/errorType");
 
 exports.getBible = async (req, res, next) => {
     try {
-        const {pagination} = req.query
-        const limit = 10
-        const offset = (pagination - 1) * limit
-
         const data = await db("bible")
             .select(
                 "id",
@@ -25,8 +21,6 @@ exports.getBible = async (req, res, next) => {
                     .as("max_date"),
                 "created_at"
             )
-            .limit(limit)
-            .offset(offset)
 
         res.status(200).json({message: "OK", data})
     } catch (e) {

@@ -5,10 +5,6 @@ const moment = require("moment");
 
 exports.getAcara = async (req, res, next) => {
     try {
-        const {pagination} = req.query
-        const limit = 10
-        const offset = (pagination - 1) * limit
-
         const data = await db("acara")
             .select(
                 "id",
@@ -22,8 +18,6 @@ exports.getAcara = async (req, res, next) => {
                 "time_before",
                 "canceled_at",
             )
-            .limit(limit)
-            .offset(offset)
 
         res.status(200).json({message: "OK", data})
     } catch (e) {

@@ -4,14 +4,8 @@ const {MYSQL_ERROR} = require("../../middleware/errorHandler/errorType");
 
 exports.getUser = async (req, res, next) => {
     try {
-        const {pagination} = req.query
-        const limit = 10
-        const offset = (pagination - 1) * limit
-
         const data = await db("user")
             .select("user.id", "nama", "email", "phone", "joined_at")
-            .limit(limit)
-            .offset(offset)
 
         res.status(200).json({message: "OK", data})
     } catch (e) {
