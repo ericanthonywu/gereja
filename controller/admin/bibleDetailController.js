@@ -8,7 +8,7 @@ exports.getBibleDetail = async (req, res, next) => {
 
         const data = await db("bible_detail")
             .where({bible_id})
-            .select("id", "date", "bab")
+            .select("id", "date", "bab", "pasal", "abbr")
 
         res.status(200).json({message: "OK", data})
     } catch (e) {
@@ -18,8 +18,8 @@ exports.getBibleDetail = async (req, res, next) => {
 
 exports.createBibleDetail = async (req, res, next) => {
     try {
-        const {bible_id, date, bab, pasal} = req.body
-        await db("bible_detail").insert({bible_id, date, bab, pasal})
+        const {bible_id, date, bab, pasal, abbr} = req.body
+        await db("bible_detail").insert({bible_id, date, bab, pasal, abbr})
 
         res.status(201).json({message: "OK"})
     } catch (e) {
@@ -29,8 +29,8 @@ exports.createBibleDetail = async (req, res, next) => {
 
 exports.updateBibleDetail = async (req, res, next) => {
     try {
-        const {bible_id, date, bab,pasal, id} = req.body
-        await db("bible_detail").update({bible_id, date, bab,pasal}).where({id})
+        const {bible_id, date, bab,pasal,abbr, id} = req.body
+        await db("bible_detail").update({bible_id, date, bab,pasal,abbr}).where({id})
 
         res.status(200).json({message: "OK"})
     } catch (e) {
