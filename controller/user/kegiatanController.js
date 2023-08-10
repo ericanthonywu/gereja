@@ -54,7 +54,7 @@ exports.getHistoryKegiatan = async (req, res, next) => {
             )
             .whereNotNull("event_date")
             .where("event_date", "<=", db.raw("CURRENT_DATE"))
-            .orderBy("event_date","desc")
+            .orderBy("created_at","desc")
             .orWhereNotNull("canceled_at")
             .limit(limit)
             .offset(offset)

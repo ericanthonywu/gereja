@@ -22,7 +22,7 @@ exports.getAcara = async (req, res, next) => {
             )
             .where("event_date", ">=", db.raw("CURRENT_DATE"))
             .whereNull("canceled_at")
-            .orderBy("event_date","desc")
+            .orderBy("created_at","desc")
             .limit(limit)
             .offset(offset)
 
