@@ -14,6 +14,7 @@ exports.getEbook = async (req, res, next) => {
                 "title",
                 "author",
                 "total_halaman",
+                "created_at",
             )
             .orderBy("created_at","desc")
             .limit(limit)

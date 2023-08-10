@@ -50,7 +50,8 @@ exports.getHistoryKegiatan = async (req, res, next) => {
                 "event_date",
                 "time_after",
                 "time_before",
-                db.raw(`(select exists(select 1 from kegiatan_user_registration where user_id = 1 and kegiatan_id = kegiatan.id)) as user_is_registered`)
+                db.raw(`(select exists(select 1 from kegiatan_user_registration where user_id = 1 and kegiatan_id = kegiatan.id)) as user_is_registered`),
+                "created_at",
             )
             .whereNotNull("event_date")
             .where("event_date", "<=", db.raw("CURRENT_DATE"))
