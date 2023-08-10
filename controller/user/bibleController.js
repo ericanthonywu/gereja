@@ -27,6 +27,7 @@ exports.getBible = async (req, res, next) => {
                     .as("max_date"),
                 "created_at"
             )
+            .orderBy("created_at","desc")
             .limit(limit)
             .offset(offset)
 
