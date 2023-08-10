@@ -143,7 +143,7 @@ exports.getBibleList = async (req, res, next) => {
 exports.getBibleListDetail = async (req, res, next) => {
     try {
         const {abbr, chapter} = req.params
-        const {data: {data}} = await axios.get(`https://beeble.vercel.app/api/v1/passage/${abbr}/${chapter}?ver=tsi`)
+        const {data: {data}} = await axios.get(`https://beeble.vercel.app/api/v1/passage/${abbr}/${chapter}?ver=tb`)
         res.status(200).json({message: "OK", data: data.verses})
     } catch (e) {
         next(errorHandlerSyntax(AXIOS_ERROR, e))
