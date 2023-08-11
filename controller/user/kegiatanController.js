@@ -21,6 +21,7 @@ exports.getKegiatan = async (req, res, next) => {
                 "time_after",
                 "time_before",
                 "canceled_at",
+                "created_at",
                 db.raw(`(select exists(select 1 from kegiatan_user_registration where user_id = 1 and kegiatan_id = kegiatan.id)) as user_is_registered`)
             )
             .where(db.raw("IFNULL(event_date,CURRENT_DATE)"), ">=", db.raw("CURRENT_DATE"))
