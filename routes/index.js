@@ -40,7 +40,7 @@ router.get("/bible/detail/:bible_id", jwtMiddleware, getBibleDetail)
 router.put("/bible/detail", jwtMiddleware, updateBibleDetailStatus)
 router.get("/bible/detail/read/:bible_detail_id", jwtMiddleware, getBibleDetailRead)
 
-router.get("/bible/detail/self_reflection/:bible_detail_id", jwtMiddleware, getBibleSelfReflection)
+router.get("/bible/detail/self_reflection/:bible_id", jwtMiddleware, getBibleSelfReflection)
 router.patch("/bible/detail/self_reflection", jwtMiddleware, updateBibleSelfReflection)
 
 router.get("/bible/passage", getBibleList)

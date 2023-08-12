@@ -77,11 +77,13 @@ exports.getBibleDetailRead = async (req, res, next) => {
 
 exports.getBibleSelfReflection = async (req, res, next) => {
     try {
-        const {bible_detail_id} = req.params
+        const {bible_id} = req.params
+        const {date} = req.query
 
         const data = await db("bible_self_reflection")
             .where({
-                bible_detail_id
+                bible_id,
+                date
             })
             .first("reflection")
 
@@ -93,20 +95,21 @@ exports.getBibleSelfReflection = async (req, res, next) => {
 
 exports.updateBibleSelfReflection = async (req, res, next) => {
     try {
-        const {bible_detail_id, reflection} = req.body
+        const {bible_id, reflection, date} = req.body
 
         if (await checkExistTable(db("bible_self_reflection").where({
-            bible_detail_id,
+            bible_id,
+            date,
             user_id: res.locals.jwtData.id
         }))) {
             await db("bible_self_reflection")
                 .update({
                     reflection
                 })
-                .where({bible_detail_id, user_id: res.locals.jwtData.id})
+                .where({bible_id, date, user_id: res.locals.jwtData.id})
         } else {
             await db("bible_self_reflection")
-                .insert({bible_detail_id, user_id: res.locals.jwtData.id, reflection})
+                .insert({bible_id, date, user_id: res.locals.jwtData.id, reflection})
         }
         res.status(200).json({message: "OK"})
     } catch (e) {
