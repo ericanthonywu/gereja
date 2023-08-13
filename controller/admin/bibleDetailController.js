@@ -29,8 +29,8 @@ exports.createBibleDetail = async (req, res, next) => {
 
 exports.updateBibleDetail = async (req, res, next) => {
     try {
-        const {bible_id, date, bab,pasal,abbr, id} = req.body
-        await db("bible_detail").update({bible_id, date, bab,pasal,abbr}).where({id})
+        const {bible_id, date, bab, pasal, abbr, id} = req.body
+        await db("bible_detail").update({bible_id, date, bab, pasal, abbr}).where({id})
 
         res.status(200).json({message: "OK"})
     } catch (e) {
