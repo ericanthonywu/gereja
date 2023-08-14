@@ -83,7 +83,8 @@ exports.getBibleSelfReflection = async (req, res, next) => {
         const data = await db("bible_self_reflection")
             .where({
                 bible_id,
-                date
+                date,
+                user_id: res.locals.jwtData.id,
             })
             .first("reflection")
 
