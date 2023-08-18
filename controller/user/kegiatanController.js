@@ -56,7 +56,7 @@ exports.getHistoryKegiatan = async (req, res, next) => {
             .where({
                 user_id: res.locals.jwtData.id
             })
-            .join("kegiatan","kegiatan.id", "kegiata_user_registration.kegiatan_id")
+            .join("kegiatan","kegiatan.id", "kegiatan_user_registration.kegiatan_id")
             .orderBy("registered_at","desc")
             .limit(limit)
             .offset(offset)
