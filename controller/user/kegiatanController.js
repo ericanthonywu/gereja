@@ -26,6 +26,7 @@ exports.getKegiatan = async (req, res, next) => {
             )
             .where(db.raw("IFNULL(event_date,CURRENT_DATE)"), ">=", db.raw("CURRENT_DATE"))
             // .where("time_after", ">=", db.raw("CURRENT_TIME"))
+            .whereRaw("(IF(day_repeat_of_week is null, 7, day_repeat_of_week)) >= (IF(day_repeat_of_week is null, 7, DAYOFWEEK(current_date) - 1))")
             .orderBy("created_at","desc")
             .limit(limit)
             .offset(offset)
@@ -42,22 +43,21 @@ exports.getHistoryKegiatan = async (req, res, next) => {
         const limit = 10
         const offset = (pagination - 1) * limit
 
-        const data = await db("kegiatan")
+        const data = await db("kegiatan_user_registration")
             .select(
-                "id",
+                "kegiatan_id",
                 "title",
                 "image",
                 "description_thumbnail",
                 "event_date",
                 "time_after",
                 "time_before",
-                db.raw(`(select exists(select 1 from kegiatan_user_registration where user_id = 1 and kegiatan_id = kegiatan.id)) as user_is_registered`),
-                "created_at",
             )
-            .whereNotNull("event_date")
-            .where("event_date", "<=", db.raw("CURRENT_DATE"))
-            .orderBy("created_at","desc")
-            .orWhereNotNull("canceled_at")
+            .where({
+                user_id: res.locals.jwtData.id
+            })
+            .join("kegiatan","kegiatan.id", "kegiata_user_registration.kegiatan_id")
+            .orderBy("registered_at","desc")
             .limit(limit)
             .offset(offset)
 

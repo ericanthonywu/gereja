@@ -39,20 +39,21 @@ exports.getHistoryAcara = async (req, res, next) => {
         const limit = 10
         const offset = (pagination - 1) * limit
 
-        const data = await db("acara")
+        const data = await db("acara_user_registration")
             .select(
-                "id",
+                "acara_id",
                 "title",
                 "image",
                 "description_thumbnail",
                 "event_date",
                 "time_after",
                 "time_before",
-                db.raw(`(select exists(select 1 from acara_user_registration where user_id = ${res.locals.jwtData.id} and acara_id = acara.id)) as user_is_registered`)
             )
-            .where("event_date", "<=", db.raw("CURRENT_DATE"))
-            .orderBy("created_at","desc")
-            .orWhereNotNull("canceled_at")
+            .where({
+                user_id: res.locals.jwtData.id
+            })
+            .join("acara","acara.id", "acara_user_registration.acara_id")
+            .orderBy("registered_at","desc")
             .limit(limit)
             .offset(offset)
 
