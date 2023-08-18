@@ -34,6 +34,7 @@ exports.getUserList = async (req, res, next) => {
             .whereNotIn("user.id",
                 db("family")
                     .where("user_id", "!=", db.raw("user.id"))
+                    .where({"approve_status": false})
                     .select("family_id")
             )
             .where("user.id", "!=", res.locals.jwtData.id)
@@ -48,7 +49,7 @@ exports.getUserList = async (req, res, next) => {
 exports.getFamily = async (req, res, next) => {
     try {
         const data = await db("family")
-            .where({user_id: res.locals.jwtData.id})
+            .where({user_id: res.locals.jwtData.id, approve_status: true})
             .join("user", "user.id", "family.family_id")
             .select("user.id as family_id", "nama", "email", "phone")
 

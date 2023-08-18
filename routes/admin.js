@@ -30,7 +30,7 @@ const {
     deleteMasterTagsEbook
 } = require("../controller/admin/ebookTagsController");
 const {jwtMiddleware} = require("../middleware/authMiddleware");
-const {getUser, getUserDetailFamily} = require("../controller/admin/userController");
+const {getUser, getUserDetailFamily, familyApproval} = require("../controller/admin/userController");
 const {getBible, createBible, updateBible, deleteBible} = require("../controller/admin/bibleController");
 const {getBibleDetail, createBibleDetail, updateBibleDetail, deleteBibleDetail} = require("../controller/admin/bibleDetailController");
 const {getBibleDetailRead, createBibleDetailRead, updateBibleDetailRead, deleteBibleDetailRead} = require("../controller/admin/bibleDetailReadController");
@@ -41,6 +41,7 @@ router.get("/migrate", migrate)
 
 router.get("/user", jwtMiddleware, getUser)
 router.get("/user/:user_id", jwtMiddleware, getUserDetailFamily)
+router.put("/user/approval", jwtMiddleware, familyApproval)
 
 router.get("/acara", jwtMiddleware, getAcara)
 router.get("/acara/:acara_id", jwtMiddleware, getAcaraUser)
