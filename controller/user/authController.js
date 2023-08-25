@@ -6,11 +6,10 @@ const jwt = require("jsonwebtoken");
 
 exports.login = async (req, res, next) => {
     try {
-        const {emailOrPhone, password} = req.body;
+        const {phone, password} = req.body;
 
         const userData = await db("user")
-            .where({email: emailOrPhone})
-            .orWhere({phone: emailOrPhone})
+            .orWhere({phone})
             .first("id", "password")
 
         if (!userData) {
